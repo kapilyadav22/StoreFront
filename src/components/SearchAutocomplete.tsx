@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import Link from "next/link";
 import { searchProducts, getSearchSuggestions, type SearchResult } from "@/lib/search";
 import { useRouter } from "next/navigation";
 

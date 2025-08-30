@@ -10,7 +10,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
   const items = useCartSelector((s) => s.items);
   const dispatch = useAppDispatch();
   const inCart = useMemo(() => items.find((i) => i.product.id === product.id), [items, product.id]);
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity] = useState<number>(1);
   const [bump, setBump] = useState<boolean>(false);
   const { addToast } = useToast();
 

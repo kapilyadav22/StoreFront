@@ -1,13 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
-
 export async function POST(request: Request) {
-  if (!process.env.STRIPE_SECRET_KEY) {
-    // We only require Stripe key if using Stripe provider
-  }
-
   try {
     const body = await request.json();
     const { items, provider } = body as { items: Array<{ name: string; priceCents: number; quantity: number }>; provider?: "stripe" | "justpay" };
@@ -17,21 +11,21 @@ export async function POST(request: Request) {
     }
 
     const origin = request.headers.get("origin") || "http://localhost:3000";
-
-    // Default provider
     const selected = provider || "stripe";
 
     if (selected === "justpay") {
-      // Mock JustPay: return a local redirect URL
       const sid = `jp_${Math.random().toString(36).slice(2, 10)}`;
       const amount = items.reduce((sum, i) => sum + i.priceCents * i.quantity, 0);
       const url = `${origin}/checkout/justpay?sid=${encodeURIComponent(sid)}&amount=${amount}`;
       return NextResponse.json({ id: sid, url });
     }
 
+    // Initialize Stripe only when needed
     if (!process.env.STRIPE_SECRET_KEY) {
       return NextResponse.json({ error: "Stripe not configured" }, { status: 500 });
     }
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
     const line_items = items.map((item) => ({
       price_data: {

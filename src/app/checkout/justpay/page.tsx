@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
-export default function JustPayPage() {
+function JustPayContent() {
   const router = useRouter();
   const search = useSearchParams();
   const [processing, setProcessing] = useState(false);
@@ -29,6 +29,14 @@ export default function JustPayPage() {
         <Link href="/cart" className="text-sm underline hover:no-underline">Back to cart</Link>
       </div>
     </div>
+  );
+}
+
+export default function JustPayPage() {
+  return (
+    <Suspense fallback={<div className="max-w-md mx-auto px-6 py-16 text-center">Loading...</div>}>
+      <JustPayContent />
+    </Suspense>
   );
 }
 

@@ -1,6 +1,5 @@
 
-import Image from "next/image";
-import { findProductById, formatPrice, products } from "@/data/products";
+import { findProductById, products } from "@/data/products";
 import { notFound } from "next/navigation";
 import AddToCartButton from "./purchase";
 import ProductDetailClient from "./ProductDetailClient";

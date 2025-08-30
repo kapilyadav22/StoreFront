@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useCart } from "@/lib/cart-context";
+import { useAppDispatch } from "@/lib/store";
+import { clearCart } from "@/lib/slices/cartSlice";
 
 export default function SuccessPage() {
-  const { clearCart } = useCart();
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   useEffect(() => {
@@ -23,12 +24,12 @@ export default function SuccessPage() {
           });
         }
       } catch {}
-      clearCart();
+      dispatch(clearCart());
       sessionStorage.removeItem("checkout:items");
       sessionStorage.removeItem("checkout:total");
       sessionStorage.removeItem("checkout:provider");
     })();
-  }, [clearCart]);
+  }, [dispatch]);
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-16 text-center">

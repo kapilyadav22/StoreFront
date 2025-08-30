@@ -7,26 +7,19 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import cartReducer, {
-  addToCart,
-  updateQuantity,
-  removeFromCart,
   clearCart,
   setCart,
   CartState,
 } from "@/lib/slices/cartSlice";
 import wishlistReducer, {
-  addToWishlist,
-  removeFromWishlist,
   setWishlist,
   WishlistState,
 } from "@/lib/slices/wishlistSlice";
 import recentlyViewedReducer, {
-  addToRecentlyViewed,
   setRecentlyViewed,
   RecentlyViewedState,
 } from "@/lib/slices/recentlyViewedSlice";
 import {
-  MAX_RECENTLY_VIEWED,
   GUEST_USER_KEY,
   CART_KEY_PREFIX,
   WISHLIST_KEY_PREFIX,
@@ -61,11 +54,20 @@ export function useRecentlyViewedSelector<T>(selector: (state: RecentlyViewedSta
   return useSelector((state: RootState) => selector(state.recentlyViewed));
 }
 
+// Re-export cart actions
+export { addToCart, updateQuantity, removeFromCart, clearCart, setCart } from "@/lib/slices/cartSlice";
+
+// Re-export wishlist actions
+export { addToWishlist, removeFromWishlist, setWishlist } from "@/lib/slices/wishlistSlice";
+
+// Re-export recently viewed actions
+export { addToRecentlyViewed, setRecentlyViewed } from "@/lib/slices/recentlyViewedSlice";
+
 export function usePersistCart() {
   const [hydrated, setHydrated] = useState(false);
   const items = useCartSelector((s) => s.items);
   const dispatch = useAppDispatch();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const userKey = useMemo(() => {
     const id = (session?.user as any)?.id || session?.user?.email || GUEST_USER_KEY;
     return `${CART_KEY_PREFIX}${id}`;

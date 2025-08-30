@@ -1,12 +1,11 @@
 "use client";
 
-
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import { useToast } from "@/lib/toast";
 
-export default function VerifyPage() {
+function VerifyContent() {
   const search = useSearchParams();
   const token = search.get("token") || "";
   const [status, setStatus] = useState<"pending" | "ok" | "error">("pending");
@@ -42,6 +41,14 @@ export default function VerifyPage() {
         </>
       )}
     </div>
+  );
+}
+
+export default function VerifyPage() {
+  return (
+    <Suspense fallback={<div className="max-w-md mx-auto px-6 py-16 text-center">Loading...</div>}>
+      <VerifyContent />
+    </Suspense>
   );
 }
 
