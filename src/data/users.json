@@ -1,0 +1,21 @@
+[
+  {
+    "id": "usr_toqxvz9o",
+    "email": "kapil.yadavgfg@gmail.com",
+    "name": "Kapil",
+    "passwordHash": "$2b$10$2Fnsm85sheu8qRp6siyiZONqOuGpf3668NAYfgwpprwF/NBKknd9C"
+  },
+  {
+    "id": "usr_r084f8hb",
+    "email": "singhkapil3417@gmail.com",
+    "name": "aa",
+    "passwordHash": "$2b$10$2pEcDJ8NJAusD7tCuH4XI.ncqWxEDYHMvK8UpJG3Fpt9t.yFg5./O"
+  },
+  {
+    "id": "usr_mb0tt3fg",
+    "email": "singhkapil347@gmail.com",
+    "name": "aaa",
+    "passwordHash": "$2b$10$h.vMLUTdUwEpVXG6h39rsON2GMAaQJxIu/91i8.anx6guZ25w2EoO",
+    "verified": true
+  }
+]

@@ -24,3 +24,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes bump {
+  0% { transform: scale(1); }
+  10% { transform: scale(0.98); }
+  30% { transform: scale(1.02); }
+  50% { transform: scale(1.01); }
+  100% { transform: scale(1); }
+}
+
+.animate-bump {
+  animation: bump 300ms ease-out;
+}
